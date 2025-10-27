@@ -28,10 +28,9 @@ git checkout tags/v0.6
 python setup.py build develop
 ```
 
-## Getting Start
+## Getting Started
 
-
-### &#128293; SparseInst with FP16
+### &#128293; Lordre with FP16
 
 Lordre with FP16 achieves 30% faster inference speed and saves much training memory, we provide some comparisons about the memory, inference speed, and training speed in the below table.
 
@@ -42,53 +41,8 @@ Lordre with FP16 achieves 30% faster inference speed and saves much training mem
 
 Note: statistics are measured on NVIDIA 3090. With FP16, we have faster training speed and can also increase the batch size for better performance.
 
-
-* Testing with FP16: enable FP16 for inference by adding `--fp16`.
-
-```bash
-python tools/test_net.py --config-file configs/sparse_inst_r50_giam_fp16.yaml --fp16 MODEL.WEIGHTS model_final.pth 
-```
-
-### Testing SparseInst
-
-Before testing, you should specify the config file `<CONFIG>` and the model weights `<MODEL-PATH>`. In addition, you can change the input size by setting the `INPUT.MIN_SIZE_TEST` in both config file or commandline.
-
-* [Performance Evaluation] To obtain the evaluation results, *e.g.*, mask AP on COCO, you can run:
-
-```bash
-python tools/train_net.py --config-file <CONFIG> --num-gpus <GPUS> --eval MODEL.WEIGHTS <MODEL-PATH>
-# example:
-python tools/train_net.py --config-file configs/sparse_inst_r50_giam.yaml --num-gpus 8 --eval MODEL.WEIGHTS sparse_inst_r50_giam_aug_2b7d68.pth
-```
-
-* [Inference Speed] To obtain the inference speed (FPS) on one GPU device, you can run:
-
 ```bash
 python tools/test_net.py --config-file <CONFIG> MODEL.WEIGHTS <MODEL-PATH> INPUT.MIN_SIZE_TEST 512
 # example:
 python tools/test_net.py --config-file configs/sparse_inst_r50_giam.yaml MODEL.WEIGHTS sparse_inst_r50_giam_aug_2b7d68.pth INPUT.MIN_SIZE_TEST 512
-```
-
-**Note:** 
-* The [`tools/test_net.py`](./tools/test_net.py) only supports **1 GPU** and **1 image per batch** for measuring inference speed.
-* The inference time consists of the *pure forward time* and the *post-processing time*. While the evaluation processing, data loading, and pre-processing for wrappers (*e.g.*, ImageList) are not included.
-* `COCOMaskEvaluator` is modified from [`COCOEvaluator`](https://github.com/facebookresearch/detectron2/blob/main/detectron2/evaluation/coco_evaluation.py) for evaluating mask-only results.
-
-### FLOPs and Parameters
-
-The [`get_flops.py`](tools/get_flops.py) is built based on `detectron2` and `fvcore`. 
-
-```bash
-python tools/get_flops.py --config-file <CONFIG> --tasks parameter flop
-```
-
-
-### Training Lordre
-
-To train the SparseInst model on COCO dataset with 8 GPUs. 8 GPUs are required for the training. If you only have 4 GPUs or GPU memory is limited, it doesn't matter and you can reduce the batch size through `SOLVER.IMS_PER_BATCH` or reduce the input size. If you adjust the batch size, learning schedule should be adjusted according to the linear scaling rule.
-
-```bash
-python tools/train_net.py --config-file <CONFIG> --num-gpus 8 
-# example
-python tools/train_net.py --config-file configs/sparse_inst_r50vd_dcn_giam_aug.yaml --num-gpus 8
 ```
