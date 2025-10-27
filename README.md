@@ -10,7 +10,7 @@ We provide two versions of Lordre, *i.e.*, the basic IAM (3x3 convolution) and t
 **Note:** 
 * **I will continue adding more models** including more efficient convolutional networks, vision transformers, and larger models for high performance and high speed, please stay tuned;!
 * *input* denotes the shorter side of the input, *e.g.*, 512x864 and 608x864, we keep the aspect ratio of the input and the longer side is no more than 864.
-* The inference speed might slightly change on different machines (2080 Ti) and different versions of detectron (we mainly use [v0.3](https://github.com/facebookresearch/detectron2/tree/v0.3)). If the change is sharp, e.g., > 5ms, please feel free to contact us.
+* The inference speed might slightly change on different machines (2080 Ti) and different versions of detectron (we mainly us. If the change is sharp, e.g., > 5ms, please feel free to contact us.
 * For `aug` (augmentation), we only adopt the simple random crop (crop size: [384, 600]) provided by detectron2.
 * We adopt `weight decay=5e-2` as default setting, which is slightly different from the original paper.
 
@@ -21,7 +21,7 @@ This project is built upon the excellent framework and you should install detect
 Install the detectron2:
 
 ```bash
-git clone https://github.com/facebookresearch/detectron2.git
+git clone https://github.com/ddgarcltop/lordre.git
 # if you swith to a specific version, e.g., v0.3 (recommended) or v0.6
 git checkout tags/v0.6
 # build detectron2
