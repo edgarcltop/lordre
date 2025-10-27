@@ -1,8 +1,7 @@
 ## Overview
 **Lordre** is a conceptually novel, efficient, and fully convolutional framework for real-time instance segmentation.
 In contrast to region boxes or anchors (centers), Lordre adopts a sparse set of **instance activation maps** as object representation, to highlight informative regions for each foreground objects.
-Then it obtains the instance-level features by aggregating features according to the highlighted regions for recognition and segmentation.
-The bipartite matching compels the instance activation maps to predict objects in a one-to-one style, thus avoiding non-maximum suppression (NMS) in post-processing. 
+
 
 ## Models
 We provide two versions of Lordre, *i.e.*, the basic IAM (3x3 convolution) and the Group IAM (G-IAM for short), with different backbones.
